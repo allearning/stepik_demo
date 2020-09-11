@@ -1,26 +1,41 @@
+import random
 from flask import Flask, render_template
 
 import data
 
+MAX_CARDS_NUM = 600
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def render_index():
-    output = render_template("index.html")
+    cards_num = MAX_CARDS_NUM if len(data.tours) > MAX_CARDS_NUM else len(data.tours)
+    rh = []
+    rand_tours = {}
+    while len(rh) < cards_num:
+        candidate = random.randrange(1, len(data.tours) + 1)
+        if candidate not in rh:
+            rh.append(candidate)
+    for i in rh:
+        rand_tours[i] = data.tours[i]
+    output = render_template("index.html", tours=rand_tours, departures=data.departures)
     return output
 
 
 @app.route('/departures/<departure>/')
 def render_departure(departure):
-    output = render_template("departure.html")
+    dt = [tour for tour in data.tours.keys() if data.tours[tour]["departure"] == departure]
+    dep_tours = {}
+    for i in dt:
+        dep_tours[i] = data.tours[i]
+    output = render_template("departure.html", tours=dep_tours, departure=departure, departures=data.departures)
     return output
 
 
-@app.route('/tours/<tour_id>/')
+@app.route('/tours/<int:tour_id>/')
 def render_tour(tour_id):
-    output = render_template("tour.html")
+    output = render_template("tour.html", tour=data.tours[tour_id], departures=data.departures)
     return output
 
 
