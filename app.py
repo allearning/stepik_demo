@@ -4,7 +4,7 @@ from flask import Flask, render_template
 
 import data
 
-MAX_CARDS_NUM = 600
+MAX_CARDS_NUM = 6
 
 app = Flask(__name__)
 

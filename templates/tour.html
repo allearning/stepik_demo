@@ -4,7 +4,7 @@
       <h1 class="display-3 mt-4">{{ tour.title }} {{ tour.stars|int * "★" }}</h1>
       <!-- HERO -->
       <p class="lead">{{ tour.country }}  {{ departures[tour.departure] }} {{ tour.nights }} ночей</p>
-      <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" class="w-75" alt="">
+      <img src="{{ tour.picture }}" class="w-75" alt="">
       <p class="my-4 w-75">{{ tour.description }}</p>
       <a href="#" class="btn btn-success btn-lg">Купить тур за {{ tour.price }}</a>
     </section>
